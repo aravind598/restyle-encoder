@@ -51,5 +51,15 @@ DATASETS = {
 		'train_target_root': dataset_paths['anime_train'],
 		'test_source_root': dataset_paths['anime_test'],
 		'test_target_root': dataset_paths['anime_test']
+	},
+	
+	"anime_colab": {
+		'transforms': transforms_config.EncodeTransforms,
+		'train_source_root': dataset_paths['anime_train_colab'],
+		'train_target_root': dataset_paths['anime_train_colab'],
+		'test_source_root': dataset_paths['anime_test_colab'],
+		'test_target_root': dataset_paths['anime_test_colab']
 	}
+
+	
 }

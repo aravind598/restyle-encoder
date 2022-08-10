@@ -17,6 +17,8 @@ dataset_paths = {
 	'anime_train': r"C:\Users\Aravind\OneDrive - Nanyang Technological University\FYP\GitHub\CLIP2StyleGAN\PCA_images\0",
 	'anime_test': r"C:\Users\Aravind\OneDrive - Nanyang Technological University\FYP\GitHub\CLIP2StyleGAN\PCA_images\1",
 
+	'anime_train_colab': "/content/output/train/resized_ganime_fullbody_ultraclean-20220708T155251Z-002",
+	'anime_test_colab': "/content/output/test/resized_ganime_fullbody_ultraclean-20220708T155251Z-002",
 }
 
 model_paths = {
