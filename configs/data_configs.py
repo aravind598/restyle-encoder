@@ -44,5 +44,12 @@ DATASETS = {
 		'train_target_root': dataset_paths['ffhq'],
 		'test_source_root': dataset_paths['celeba_test'],
 		'test_target_root': dataset_paths['celeba_test']
+	},
+	"anime": {
+		'transforms': transforms_config.EncodeTransforms,
+		'train_source_root': dataset_paths['anime_train'],
+		'train_target_root': dataset_paths['anime_train'],
+		'test_source_root': dataset_paths['anime_test'],
+		'test_target_root': dataset_paths['anime_test']
 	}
 }

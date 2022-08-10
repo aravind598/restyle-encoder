@@ -4,7 +4,7 @@ This file defines the core research contribution
 import math
 import torch
 from torch import nn
-
+from torchinfo import summary
 from models.stylegan2.model import Generator
 from configs.paths_config import model_paths
 from models.encoders import fpn_encoders, restyle_psp_encoders
@@ -19,7 +19,7 @@ class pSp(nn.Module):
         self.n_styles = int(math.log(self.opts.output_size, 2)) * 2 - 2
         # Define architecture
         self.encoder = self.set_encoder()
-        self.decoder = Generator(self.opts.output_size, 512, 8, channel_multiplier=2)
+        self.decoder = Generator(self.opts.output_size, 1024, 4, channel_multiplier=2)
         self.face_pool = torch.nn.AdaptiveAvgPool2d((256, 256))
         # Load weights if needed
         self.load_weights()
@@ -57,7 +57,10 @@ class pSp(nn.Module):
         if input_code:
             codes = x
         else:
+            print(x.size())
             codes = self.encoder(x)
+            summary(self.encoder, (8, 6, 256, 256))
+            print(codes.size())
             # residual step
             if x.shape[1] == 6 and latent is not None:
                 # learn error with respect to previous iteration

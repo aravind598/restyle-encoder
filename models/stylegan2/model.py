@@ -366,6 +366,7 @@ class Generator(nn.Module):
             style_dim,
             n_mlp,
             channel_multiplier=2,
+            additional_multiplier=2,
             blur_kernel=[1, 3, 3, 1],
             lr_mlp=0.01,
     ):
@@ -397,6 +398,10 @@ class Generator(nn.Module):
             512: 32 * channel_multiplier,
             1024: 16 * channel_multiplier,
         }
+
+        if additional_multiplier > 1:
+            for k in list(self.channels.keys()):
+                self.channels[k] *= additional_multiplier
 
         self.input = ConstantInput(self.channels[4])
         self.conv1 = StyledConv(
@@ -643,10 +648,10 @@ class Discriminator(nn.Module):
 
         self.convs = nn.Sequential(*convs)
 
-        self.stddev_group = 4
-        self.stddev_feat = 1
+        self.stddev_group = 32
+        self.stddev_feat = 4
 
-        self.final_conv = ConvLayer(in_channel + 1, channels[4], 3)
+        self.final_conv = ConvLayer(in_channel + self.stddev_feat, channels[4], 3)
         self.final_linear = nn.Sequential(
             EqualLinear(channels[4] * 4 * 4, channels[4], activation='fused_lrelu'),
             EqualLinear(channels[4], 1),
